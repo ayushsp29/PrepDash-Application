@@ -1,0 +1,117 @@
+/* Use the Inter font for the entire application for a clean, modern look */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* A light slate color for the main background */
+}
+
+/* Style for the chart containers to ensure they are responsive */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 45vh; /* Responsive height based on the viewport */
+    max-height: 450px; /* A maximum height to prevent them from getting too tall */
+}
+
+/* Style for the icons in the sidebar */
+.sidebar-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+/* Adds a line-through decoration to the label of a checked task */
+.task-checkbox:checked + label {
+    text-decoration: line-through;
+    color: #64748b; /* A muted slate color */
+}
+
+/* Style for the red notification badge on the "Backlogs" button */
+.backlog-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ef4444; /* Red */
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* The dark overlay for the modal popup */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+/* A simple loading spinner animation */
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #f59e0b; /* Amber color */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Styles for the new date inputs in the settings */
+.timetable-date-input {
+    width: 130px; /* Fixed width for date inputs */
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0; /* slate-200 */
+    border-radius: 0.375rem; /* rounded-md */
+    font-size: 14px;
+}
+
+/* NEW: Styles for the Daily Progress Bar */
+.progress-bar-container {
+    background-color: #e5e7eb; /* gray-200 */
+    border-radius: 9999px; /* rounded-full */
+    height: 1.25rem; /* h-5 */
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: #22c55e; /* green-500 */
+    transition: width 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 600; /* font-semibold */
+}
+
+/* NEW: Styles for Subject-wise Progress Section */
+.subject-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.subject-progress-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
+}

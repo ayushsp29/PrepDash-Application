@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepDash - Placement Prep Dashboard</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for progress charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to our custom CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-slate-800">
+
+    <div id="app-container" class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-800 text-slate-100 flex flex-col p-4 shrink-0">
+            <h1 class="text-2xl font-bold text-amber-400 mb-8">PrepDash</h1>
+            
+            <nav class="flex flex-col space-y-2 flex-grow">
+                <!-- Navigation links for each section -->
+                <button onclick="switchView('today')" class="nav-link flex items-center space-x-3 p-2 rounded-lg bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Today's Plan</span>
+                </button>
+                <button onclick="switchView('backlogs')" class="nav-link relative flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1h4v1m-4 0h-4v-1h4v1m0 9.01V16m0-1.01V15m0-1.01V14m0-1.01V13m0-1.01V12m0-1.01V11m0-1.01V10m0-1.01V9m0-1.01V8m0 0H9m3 0h3m0 0h-3m-3 0H6m3 0h3M6 12h12"></path></svg>
+                    <span>Backlogs</span>
+                    <div id="backlog-badge" class="backlog-badge hidden"></div>
+                </button>
+                <button onclick="switchView('calendar')" class="nav-link flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span>Monthly Calendar</span>
+                </button>
+                <button onclick="switchView('progress')" class="nav-link flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <span>Progress Tracker</span>
+                </button>
+            </nav>
+            
+            <div>
+                <!-- Settings Link -->
+                <button onclick="switchView('settings')" class="nav-link w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span>Settings</span>
+                </button>
+                <!-- Date Display -->
+                <div class="mt-4 bg-slate-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-400">Current Date (IST)</p>
+                    <p id="current-date-display" class="font-semibold text-amber-400"></p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 lg:p-8 overflow-y-auto">
+            <!-- Content for each view will be dynamically inserted here -->
+            <div id="view-today" class="view-content"></div>
+            <div id="view-backlogs" class="view-content hidden"></div>
+            <div id="view-calendar" class="view-content hidden"></div>
+            <div id="view-progress" class="view-content hidden"></div>
+            <div id="view-settings" class="view-content hidden"></div>
+        </main>
+    </div>
+
+    <!-- Modal for Mock Email Alert -->
+    <div id="email-modal" class="modal-overlay hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Incomplete Tasks!</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-slate-500">You have <span id="modal-backlog-count" class="font-bold"></span> incomplete tasks from yesterday. Don't fall behind!</p>
+                </div>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <button onclick="document.getElementById('email-modal').classList.add('hidden'); switchView('backlogs');" class="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600">View Backlogs</button>
+                    <button onclick="document.getElementById('email-modal').classList.add('hidden')" class="px-6 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200">Dismiss</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link to our JavaScript file -->
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
