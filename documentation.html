@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prep Dash - Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            @apply text-3xl font-bold text-slate-800 mb-3;
+        }
+        .section-subtitle {
+            @apply text-lg text-slate-500 mb-8;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-700">
+
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-40 border-b border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold text-slate-800">
+                    Prep Dash 🚀
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#tech-stack" class="text-slate-600 hover:text-amber-600 transition-colors font-medium">Tech Stack</a>
+                    <a href="#features" class="text-slate-600 hover:text-amber-600 transition-colors font-medium">Features</a>
+                    <a href="#philosophy" class="text-slate-600 hover:text-amber-600 transition-colors font-medium">Philosophy</a>
+                    <a href="#user-manual" class="text-slate-600 hover:text-amber-600 transition-colors font-medium">User Manual</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-600 hover:bg-slate-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+            <a href="#tech-stack" class="block py-3 px-4 text-slate-600 hover:bg-slate-100">Tech Stack</a>
+            <a href="#features" class="block py-3 px-4 text-slate-600 hover:bg-slate-100">Features</a>
+            <a href="#philosophy" class="block py-3 px-4 text-slate-600 hover:bg-slate-100">Philosophy</a>
+            <a href="#user-manual" class="block py-3 px-4 text-slate-600 hover:bg-slate-100">User Manual</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <h1 class="text-5xl font-extrabold text-slate-900 mb-4">The Ultimate Student Planner</h1>
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                Prep Dash is a dynamic, all-in-one dashboard designed to help students organize their tasks, track their progress, and build consistent habits for academic success.
+            </p>
+            <div class="mt-10 rounded-xl shadow-2xl mx-auto bg-white p-4 border border-slate-200">
+                <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-lg">
+                    <rect width="800" height="400" fill="#FFF0D9"/>
+                    <text x="400" y="200" font-family="Inter, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#4A5568">Prep Dash Dashboard</text>
+                    <rect x="50" y="50" width="200" height="300" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+                    <rect x="60" y="60" width="180" height="30" rx="5" fill="#FBBF24"/>
+                    <text x="150" y="80" font-family="Inter" font-size="14" fill="white" text-anchor="middle">Today</text>
+                    <rect x="60" y="100" width="180" height="2" fill="#E2E8F0"/>
+                    <rect x="280" y="50" width="470" height="150" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+                    <text x="300" y="80" font-family="Inter" font-size="18" font-weight="bold" fill="#334155">Plan for Today</text>
+                    <rect x="300" y="100" width="430" height="20" rx="5" fill="#F1F5F9"/>
+                    <rect x="300" y="130" width="430" height="20" rx="5" fill="#F1F5F9"/>
+                    <rect x="300" y="160" width="430" height="20" rx="5" fill="#F1F5F9"/>
+                    <rect x="280" y="220" width="470" height="130" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+                    <text x="300" y="250" font-family="Inter" font-size="18" font-weight="bold" fill="#334155">Progress</text>
+                    <path d="M320 320 Q 420 270, 520 290 T 720 260" stroke="#22C55E" stroke-width="3" fill="none"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech-stack" class="py-16">
+            <div class="text-center">
+                <h2 class="section-title">Built with Modern Technology</h2>
+                <p class="section-subtitle">Leveraging a robust and scalable tech stack to deliver a seamless experience.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-4xl mx-auto">
+                <!-- HTML5 -->
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md transition-transform hover:scale-105">
+                    <svg class="h-16 mb-4" viewBox="0 0 1024 1024" fill="#E44D26"><path d="M128 896h768L832 128H192l64 384h384l-32 192H320l-32 192z"/></svg>
+                    <h3 class="font-semibold text-lg">HTML5</h3>
+                </div>
+                <!-- CSS3 -->
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md transition-transform hover:scale-105">
+                    <svg class="h-16 mb-4" viewBox="0 0 1024 1024" fill="#264DE4"><path d="M128 896h768L832 128H192l64 384h384l-32 192H320l-32 192z"/></svg>
+                    <h3 class="font-semibold text-lg">CSS3</h3>
+                </div>
+                <!-- JavaScript -->
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md transition-transform hover:scale-105">
+                    <svg class="h-16 mb-4" viewBox="0 0 1024 1024" fill="#F0DB4F"><path d="M128 128h768v768H128z"/><path d="M320 768h128v-128H320zm192-128c0-64 48-112 112-112 64 0 112 48 112 112 0 48-32 96-112 96-48 0-112-32-112-96zm112-48c-24 0-48 24-48 48s24 48 48 48 48-24 48-48-24-48-48-48z" fill="#323330"/></svg>
+                    <h3 class="font-semibold text-lg">JavaScript</h3>
+                </div>
+                <!-- Tailwind CSS -->
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md transition-transform hover:scale-105">
+                    <svg class="h-16 mb-4" fill="none" stroke="#38BDF8" stroke-width="10" viewBox="0 0 154 94"><path d="M30.36 4.79L4 43.15l26.36 38.36h21.37l-26.37-38.36L51.73 4.8H30.36zm38.36 76.72L42.36 43.15l26.36-38.36h21.37l-26.37 38.36L88.1 81.5H68.72zm51.73-38.36L94.09 4.8h21.37l26.36 38.36-26.36 38.36h-21.37l26.36-38.36z"/></svg>
+                    <h3 class="font-semibold text-lg">Tailwind CSS</h3>
+                </div>
+                <!-- Firebase -->
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md transition-transform hover:scale-105">
+                    <svg class="h-16 mb-4" viewBox="0 0 1024 1024" fill="#FFCA28"><path d="M256 768l384-512L256 128v640z"/><path d="M320 768l192-256-192-192v448z" fill="#FFA000"/><path d="M128 896l256-640-128-128L0 640l128 256z" fill="#F57C00"/></svg>
+                    <h3 class="font-semibold text-lg">Firebase</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 bg-white rounded-2xl shadow-lg">
+             <div class="text-center">
+                <h2 class="section-title">Core Features</h2>
+                <p class="section-subtitle">Everything you need to stay organized and motivated.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Today's Dashboard</h3><p>A focused view of your daily tasks and habits, with a progress bar to track completion.</p></div>
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Monthly Calendar</h3><p>Visualize your schedule for the entire month, with color-coded days indicating your performance.</p></div>
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Backlog Management</h3><p>Never miss a task. All incomplete items from previous days are automatically moved to a dedicated backlog view.</p></div>
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Subject Progress Tracker</h3><p>Monitor your performance in each subject with dynamic progress bars showing your completion rate.</p></div>
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Habit Consistency Curve</h3><p>Build momentum with the "1% Better" tracker. A visual curve shows your growth based on daily habit completion.</p></div>
+                <div class="p-6 bg-slate-50 rounded-lg border border-slate-200"><h3 class="text-xl font-semibold mb-2">Fully Customizable</h3><p>Easily edit your daily timetable and add or remove habits through the intuitive settings page.</p></div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="py-16">
+            <div class="text-center">
+                <h2 class="section-title">The Power of 1% Better: A Unique Approach to Habits</h2>
+                <p class="section-subtitle">How small, consistent actions lead to remarkable results.</p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg prose lg:prose-lg">
+                <h3>How Does Continuous Improvement Work?</h3>
+                <p>So often we convince ourselves that change is only meaningful if there is some large, visible outcome associated with it. Whether it is losing weight, building a business, or traveling the world, we often put pressure on ourselves to make some earth-shattering improvement that everyone will talk about.</p>
+                <p>Meanwhile, improving by just 1 percent isn’t notable (and sometimes it isn’t even noticeable). But it can be just as meaningful, especially in the long run.</p>
+                
+                <blockquote class="border-l-4 border-amber-400 pl-4 italic text-slate-600">
+                    "In the beginning, there is basically no difference between making a choice that is 1 percent better or 1 percent worse. But as time goes on, these small improvements or declines compound and you suddenly find a very big gap between people who make slightly better decisions on a daily basis and those who don’t."
+                </blockquote>
+
+                <p>Here’s the punchline: If you get one percent better each day for one year, you’ll end up **thirty-seven times better** by the time you’re done. This is why small choices don’t make much of a difference at the time, but add up over the long-term.</p>
+                
+                <p>The Habit Consistency Curve in Prep Dash is built on this very principle. It’s not about perfection; it's about consistency. By completing your habits each day, you move the needle forward by 1%, creating a powerful, visual representation of your compounding growth over time.</p>
+            </div>
+        </section>
+
+        <!-- User Manual Section -->
+        <section id="user-manual" class="py-16">
+            <div class="text-center">
+                <h2 class="section-title">How It Works: A User Manual</h2>
+                <p class="section-subtitle">Get started with Prep Dash in a few simple steps.</p>
+            </div>
+            <div class="space-y-16">
+                <!-- Step 1 -->
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <span class="text-amber-500 font-bold">STEP 1</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-1 mb-4">Customize Your Schedule & Habits</h3>
+                        <p>Navigate to the **Settings** view (the gear icon). Here, you can define your recurring daily schedule by adding tasks with specific times. Below the timetable, you can add the habits you want to track, along with their start and end dates. Click "Save" after making changes.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-lg border border-slate-200">
+                        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-lg"><rect width="600" height="400" fill="#F7FAFC"/><text x="300" y="40" font-family="Inter" font-size="20" font-weight="bold" text-anchor="middle" fill="#2D3748">Settings</text><rect x="50" y="70" width="500" height="150" rx="10" fill="white" stroke="#E2E8F0"/><text x="70" y="100" font-family="Inter" font-size="16" font-weight="semibold" fill="#4A5568">Edit Timetable</text><rect x="70" y="120" width="460" height="30" rx="5" fill="#EDF2F7"/><rect x="70" y="160" width="460" height="30" rx="5" fill="#EDF2F7"/><rect x="50" y="240" width="500" height="120" rx="10" fill="white" stroke="#E2E8F0"/><text x="70" y="270" font-family="Inter" font-size="16" font-weight="semibold" fill="#4A5568">Edit Habits</text><rect x="70" y="290" width="460" height="30" rx="5" fill="#EDF2F7"/></svg>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                     <div class="bg-white p-4 rounded-xl shadow-lg border border-slate-200 md:order-last">
+                        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-lg"><rect width="600" height="400" fill="#F7FAFC"/><text x="300" y="40" font-family="Inter" font-size="20" font-weight="bold" text-anchor="middle" fill="#2D3748">Today's View</text><rect x="50" y="70" width="500" height="150" rx="10" fill="white" stroke="#E2E8F0"/><text x="70" y="100" font-family="Inter" font-size="16" font-weight="semibold" fill="#4A5568">Daily Schedule</text><rect x="80" y="125" width="20" height="20" rx="5" fill="#CBD5E0"/><text x="110" y="140" font-family="Inter" font-size="14" fill="#4A5568">Complete DSA Problems</text><rect x="80" y="165" width="20" height="20" rx="5" fill="#CBD5E0"/><text x="110" y="180" font-family="Inter" font-size="14" fill="#4A5568">Web Dev Project</text><rect x="50" y="240" width="500" height="120" rx="10" fill="white" stroke="#E2E8F0"/><text x="70" y="270" font-family="Inter" font-size="16" font-weight="semibold" fill="#4A5568">Daily Habits</text><rect x="80" y="295" width="20" height="20" rx="5" fill="#CBD5E0"/><text x="110" y="310" font-family="Inter" font-size="14" fill="#4A5568">Read for 30 minutes</text></svg>
+                    </div>
+                    <div>
+                        <span class="text-amber-500 font-bold">STEP 2</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-1 mb-4">Track Your Daily Progress</h3>
+                        <p>In the **Today** view, you'll see all your scheduled tasks and active habits for the current day. Simply check the box next to each item as you complete it. Your daily progress bar will update in real-time.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <span class="text-amber-500 font-bold">STEP 3</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-1 mb-4">Analyze Your Performance</h3>
+                        <p>Go to the **Progress** view (the chart icon) to see your data visualized. You can review your weekly completion rate, see a detailed breakdown of your progress in each subject, and watch your habit consistency curve grow with each successful day.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-lg border border-slate-200">
+                        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-lg"><rect width="600" height="400" fill="#F7FAFC"/><text x="300" y="40" font-family="Inter" font-size="20" font-weight="bold" text-anchor="middle" fill="#2D3748">Progress View</text><rect x="50" y="70" width="240" height="140" rx="10" fill="white" stroke="#E2E8F0"/><text x="170" y="95" text-anchor="middle" font-family="Inter" font-size="14" font-weight="semibold" fill="#4A5568">Subject Progress</text><rect x="70" y="110" width="200" height="15" rx="7.5" fill="#E2E8F0"/><rect x="70" y="110" width="150" height="15" rx="7.5" fill="#48BB78"/><rect x="70" y="140" width="200" height="15" rx="7.5" fill="#E2E8F0"/><rect x="70" y="140" width="80" height="15" rx="7.5" fill="#48BB78"/><rect x="310" y="70" width="240" height="140" rx="10" fill="white" stroke="#E2E8F0"/><text x="430" y="95" text-anchor="middle" font-family="Inter" font-size="14" font-weight="semibold" fill="#4A5568">Weekly Completion</text><path d="M330 180 C 380 130, 430 160, 480 140" stroke="#4299E1" stroke-width="3" fill="none"/><rect x="50" y="230" width="500" height="140" rx="10" fill="white" stroke="#E2E8F0"/><text x="300" y="255" text-anchor="middle" font-family="Inter" font-size="14" font-weight="semibold" fill="#4A5568">Habit Consistency Curve</text><path d="M80 340 C 180 340, 250 280, 350 290 S 450 350, 520 330" stroke="#F59E0B" stroke-width="3" fill="none"/></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-300 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Prep Dash. All Rights Reserved.</p>
+            <p class="text-sm mt-2">A project designed to empower students everywhere.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                mobileMenu.classList.add('hidden'); // Close mobile menu on click
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
