@@ -6,8 +6,7 @@ Prep Dash is a dynamic, all-in-one dashboard designed to help students organize 
 
 **[➡️ View Live Demo](https://prep-dash-application.vercel.app/)**
 
-![Prep Dash Screenshot](https://i.imgur.com/your-screenshot-url.png) 
-*(Replace this with a real screenshot of your application)*
+
 
 ---
 
