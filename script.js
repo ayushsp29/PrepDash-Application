@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebas
 import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration - PLEASE REPLACE WITH YOUR NEW, RESTRICTED API KEY
 const firebaseConfig = {
     apiKey: "AIzaSyAsKuZFDCmOhEoBMqR21unqWNNlyMM3GAA",
     authDomain: "prepdash-ayush.firebaseapp.com",
@@ -23,13 +23,20 @@ const db = getFirestore(app);
 // Global state variables
 let userId;
 let weeklyProgressChart = null;
+let habitCurveChart = null; // New chart instance
 let currentView = 'today';
 let currentDate = new Date();
 let calendarDate = new Date(currentDate);
 let userTimetable = [];
 let taskStatuses = {};
 let selectedCalendarDate = null;
-let subjectTotalCounts = {}; // To store total occurrences of each subject
+let subjectTotalCounts = {};
+
+// --- NEW: Habit Tracker State ---
+let userHabits = [];
+let habitCompletion = {}; // { "YYYY-MM-DD": { "Habit Name": true/false } }
+let habitCurveState = { day: 0, value: 1.0, history: [] }; // Tracks the curve's state
+
 
 // --- Application Data Constants ---
 const dailyTasks = {
@@ -224,6 +231,7 @@ function main() {
 }
 
 async function loadUserData() {
+    // Timetable
     const timetableDocRef = doc(db, `users/${userId}/data/timetable`);
     const timetableDoc = await getDoc(timetableDocRef);
     if (timetableDoc.exists()) {
@@ -235,13 +243,38 @@ async function loadUserData() {
     } else {
         userTimetable = defaultTimetable;
     }
+
+    // Task Statuses
     const tasksCollectionRef = collection(db, `users/${userId}/tasks`);
     const tasksSnapshot = await getDocs(tasksCollectionRef);
     taskStatuses = {};
     tasksSnapshot.forEach(doc => {
         taskStatuses[doc.id] = doc.data();
     });
+
+    // Habits
+    const habitsDocRef = doc(db, `users/${userId}/data/habits`);
+    const habitsDoc = await getDoc(habitsDocRef);
+    if (habitsDoc.exists()) {
+        userHabits = habitsDoc.data().habits || [];
+    }
+
+    // Habit Completion History
+    const habitCompletionCollectionRef = collection(db, `users/${userId}/habitCompletion`);
+    const habitCompletionSnapshot = await getDocs(habitCompletionCollectionRef);
+    habitCompletion = {};
+    habitCompletionSnapshot.forEach(doc => {
+        habitCompletion[doc.id] = doc.data();
+    });
+
+    // Habit Curve State
+    const habitCurveStateRef = doc(db, `users/${userId}/data/habitCurveState`);
+    const habitCurveStateDoc = await getDoc(habitCurveStateRef);
+    if (habitCurveStateDoc.exists()) {
+        habitCurveState = habitCurveStateDoc.data();
+    }
 }
+
 
 function setupInitialView() {
     document.getElementById('current-date-display').textContent = displayDate(currentDate);
@@ -256,6 +289,8 @@ function setupEventListeners() {
     window.handleCheckboxChange = handleCheckboxChange;
     window.completeBacklogTask = completeBacklogTask;
     window.saveTimetable = saveTimetable;
+    window.saveHabits = saveHabits; // New event listener
+    window.handleHabitChange = handleHabitChange; // New event listener
 }
 
 // --- Schedule Generation ---
@@ -308,19 +343,22 @@ function renderToday() {
     const container = document.getElementById('view-today');
     container.innerHTML = `
         <div class="mb-6"><h2 class="text-3xl font-bold text-slate-900">Plan for ${displayDate(currentDate)}</h2></div>
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-            <div class="mb-4">
-                <div class="flex justify-between items-center mb-1">
-                    <h4 class="font-semibold text-slate-600">Daily Progress</h4>
-                    <span id="daily-progress-text" class="text-sm font-semibold text-slate-600">0%</span>
+        <div id="today-content-wrapper">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-1">
+                        <h4 class="font-semibold text-slate-600">Daily Progress</h4>
+                        <span id="daily-progress-text" class="text-sm font-semibold text-slate-600">0%</span>
+                    </div>
+                    <div class="progress-bar-container"><div id="daily-progress-bar" class="progress-bar-fill" style="width: 0%;"></div></div>
                 </div>
-                <div class="progress-bar-container"><div id="daily-progress-bar" class="progress-bar-fill" style="width: 0%;"></div></div>
+                <h3 class="text-xl font-semibold mb-4 border-t pt-4">Daily Schedule</h3>
+                <div id="daily-schedule-list" class="space-y-2"></div>
             </div>
-            <h3 class="text-xl font-semibold mb-4 border-t pt-4">Daily Schedule</h3>
-            <div id="daily-schedule-list" class="space-y-2"></div>
         </div>`;
     renderSchedule(document.getElementById('daily-schedule-list'), currentDate);
     updateDailyProgressBar();
+    renderDailyHabits(document.getElementById('today-content-wrapper'));
 }
 
 function renderCalendar() {
@@ -422,9 +460,17 @@ function renderProgress() {
         <div>
             <h2 class="text-3xl font-bold text-slate-900 mb-6">Subject-wise Progress</h2>
             <div id="subject-progress-grid" class="subject-progress-grid"></div>
+        </div>
+        <div class="mt-8 pt-6 border-t">
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">Habit Consistency Curve</h2>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="chart-container"><canvas id="habitCurveChart"></canvas></div>
+            </div>
         </div>`;
 
-    let totalTasks = 0, totalCompleted = 0, streak = 0;
+    let totalTasks = 0,
+        totalCompleted = 0,
+        streak = 0;
     const weeklyData = {};
     let tempDate = new Date(startDate);
 
@@ -463,11 +509,11 @@ function renderProgress() {
     document.getElementById('overall-completion').textContent = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) : 0;
     const labels = Object.keys(weeklyData).sort();
     const completionRates = labels.map(w => (weeklyData[w].total > 0 ? (weeklyData[w].completed / weeklyData[w].total) * 100 : 0));
-    
+
     const chartType = completionRates.length > 1 ? 'line' : 'bar';
 
     if (weeklyProgressChart) weeklyProgressChart.destroy();
-    
+
     const chartCtx = document.getElementById('weeklyProgressChart').getContext('2d');
     if (chartCtx) {
         const gradient = chartCtx.createLinearGradient(0, 0, 0, 400);
@@ -475,7 +521,7 @@ function renderProgress() {
         gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
 
         weeklyProgressChart = new Chart(chartCtx, {
-            type: chartType, 
+            type: chartType,
             data: {
                 labels: labels.map(l => `Week of ${l}`),
                 datasets: [{
@@ -548,15 +594,61 @@ function renderProgress() {
             <div class="progress-bar-container"><div class="progress-bar-fill" style="width: ${overallPercentage}%;">${overallPercentage}%</div></div>`;
         gridContainer.appendChild(card);
     }
+    renderHabitChart(); // New function call
 }
 
 function renderSettings() {
     const container = document.getElementById('view-settings');
     let timetableHTML = `<div class="grid grid-cols-12 gap-2 items-center mb-2 text-sm font-semibold text-slate-600"><div class="col-span-3">Time</div><div class="col-span-3">Activity</div><div class="col-span-2">Valid From</div><div class="col-span-2">Valid To</div><div class="col-span-2"></div></div>`;
     timetableHTML += userTimetable.map((task) => `<div class="grid grid-cols-12 gap-2 items-center timetable-row"><input type="text" value="${task.time}" class="col-span-3 p-2 border rounded-md timetable-time" placeholder="e.g., 9:00am-11:00am"><input type="text" value="${task.activity}" class="col-span-3 p-2 border rounded-md timetable-activity" placeholder="Activity Name"><input type="date" value="${task.from}" class="col-span-2 timetable-date-input timetable-from"><input type="date" value="${task.to}" class="col-span-2 timetable-date-input timetable-to"><div class="col-span-2 flex justify-end"><button onclick="this.closest('.timetable-row').remove()" class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600">✕</button></div></div>`).join('');
-    container.innerHTML = `<div class="mb-6"><h2 class="text-3xl font-bold text-slate-900">Settings</h2><p class="text-slate-500">Customize your default daily timetable.</p></div><div class="bg-white p-6 rounded-xl shadow-sm"><h3 class="text-xl font-semibold mb-4">Edit Timetable</h3><div id="timetable-editor" class="space-y-3">${timetableHTML}</div><div class="mt-4"><button id="add-task-btn" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-md hover:bg-slate-300">Add Task</button></div><div class="mt-6 border-t pt-4"><button onclick="saveTimetable()" class="px-6 py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600">Save Changes</button></div></div>`;
+    
+    let habitsHTML = '';
+    userHabits.forEach(habit => {
+        habitsHTML += `
+            <div class="grid grid-cols-12 gap-2 items-center habit-row">
+                <input type="text" class="col-span-6 p-2 border rounded-md habit-name" placeholder="e.g., Read for 30 minutes" value="${habit.name}">
+                <input type="date" class="col-span-2 timetable-date-input habit-from" value="${habit.from}">
+                <input type="date" class="col-span-2 timetable-date-input habit-to" value="${habit.to}">
+                <div class="col-span-2 flex justify-end">
+                    <button onclick="this.closest('.habit-row').remove()" class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600">✕</button>
+                </div>
+            </div>`;
+    });
+
+    container.innerHTML = `
+        <div class="mb-6"><h2 class="text-3xl font-bold text-slate-900">Settings</h2><p class="text-slate-500">Customize your default daily timetable.</p></div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">Edit Timetable</h3>
+            <div id="timetable-editor" class="space-y-3">${timetableHTML}</div>
+            <div class="mt-4"><button id="add-task-btn" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-md hover:bg-slate-300">Add Task</button></div>
+            <div class="mt-6 border-t pt-4"><button onclick="saveTimetable()" class="px-6 py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600">Save Changes</button></div>
+        
+            <div class="mt-8 pt-6 border-t">
+                <h3 class="text-xl font-semibold mb-4">Edit Habits</h3>
+                <div id="habit-editor" class="space-y-3">${habitsHTML}</div>
+                <div class="mt-4">
+                    <button id="add-habit-btn" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-md hover:bg-slate-300">Add Habit</button>
+                </div>
+                <div class="mt-6">
+                    <button onclick="saveHabits()" class="px-6 py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600">Save Habits</button>
+                </div>
+            </div>
+        </div>`;
+    
     document.getElementById('add-task-btn').onclick = () => { document.getElementById('timetable-editor').insertAdjacentHTML('beforeend', `<div class="grid grid-cols-12 gap-2 items-center timetable-row"><input type="text" class="col-span-3 p-2 border rounded-md timetable-time" placeholder="e.g., 9:00am-11:00am"><input type="text" class="col-span-3 p-2 border rounded-md timetable-activity" placeholder="Activity Name"><input type="date" value="2025-08-01" class="col-span-2 timetable-date-input timetable-from"><input type="date" value="2026-01-31" class="col-span-2 timetable-date-input timetable-to"><div class="col-span-2 flex justify-end"><button onclick="this.closest('.timetable-row').remove()" class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600">✕</button></div></div>`); };
+    document.getElementById('add-habit-btn').onclick = () => {
+        document.getElementById('habit-editor').insertAdjacentHTML('beforeend', `
+            <div class="grid grid-cols-12 gap-2 items-center habit-row">
+                <input type="text" class="col-span-6 p-2 border rounded-md habit-name" placeholder="e.g., Read for 30 minutes">
+                <input type="date" class="col-span-2 timetable-date-input habit-from">
+                <input type="date" class="col-span-2 timetable-date-input habit-to">
+                <div class="col-span-2 flex justify-end">
+                    <button onclick="this.closest('.habit-row').remove()" class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600">✕</button>
+                </div>
+            </div>`);
+    };
 }
+
 
 function renderSchedule(container, date) {
     container.innerHTML = '';
@@ -678,7 +770,7 @@ function updateDailyProgressBar() {
     const percentage = Math.round((completedTasks / trackableTasks.length) * 100);
     const bar = document.getElementById('daily-progress-bar');
     const text = document.getElementById('daily-progress-text');
-    
+
     bar.style.width = `${percentage}%`;
     bar.textContent = `${percentage}%`;
     text.textContent = `${completedTasks} / ${trackableTasks.length} tasks completed`;
@@ -700,7 +792,7 @@ function calculateTotalSubjectOccurrences() {
         if (!coreSubjects.has(subjectName) && !nonTrackableSubjects.includes(subjectName)) {
             const fromDate = new Date(task.from + 'T00:00:00');
             const toDate = new Date(task.to + 'T00:00:00');
-            
+
             // Ensure dates are valid before calculating.
             if (!isNaN(fromDate.getTime()) && !isNaN(toDate.getTime())) {
                 const diffTime = Math.abs(toDate - fromDate);
@@ -723,20 +815,21 @@ function calculateTotalSubjectOccurrences() {
     while (tempDate <= endDate) {
         // This check is specifically for the 'Core CSE' task in the timetable.
         if (userTimetable.some(task => task.activity === 'Core CSE')) {
-             let activeCoreSubject = getCoreCseTopic(tempDate);
-             if (counts.hasOwnProperty(activeCoreSubject)) {
+            let activeCoreSubject = getCoreCseTopic(tempDate);
+            if (counts.hasOwnProperty(activeCoreSubject)) {
                 // We only count on weekdays, consistent with the original logic.
                 const dayOfWeek = tempDate.getDay();
                 if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                     counts[activeCoreSubject]++;
                 }
-             }
+            }
         }
         tempDate.setDate(tempDate.getDate() + 1);
     }
 
     subjectTotalCounts = counts;
 }
+
 
 function calculateSubjectProgress() {
     // The subjects to track are now the keys of the dynamically generated subjectTotalCounts object.
@@ -777,6 +870,165 @@ function getTaskStatus(dateString, activity) {
     return taskStatuses[dateString] ? taskStatuses[dateString][activity] === true : false;
 }
 
+// --- NEW Habit Functions ---
+
+async function saveHabits() {
+    const editor = document.getElementById('habit-editor');
+    const newHabits = Array.from(editor.querySelectorAll('.habit-row')).map(row => ({
+        name: row.querySelector('.habit-name').value,
+        from: row.querySelector('.habit-from').value,
+        to: row.querySelector('.habit-to').value
+    })).filter(h => h.name && h.from && h.to);
+
+    const habitsDocRef = doc(db, `users/${userId}/data/habits`);
+    await setDoc(habitsDocRef, { habits: newHabits });
+    userHabits = newHabits;
+    alert('Habits saved successfully!');
+    updateAllViews();
+}
+
+function getActiveHabitsForDay(date) {
+    const dateString = formatDate(date);
+    return userHabits.filter(habit => {
+        return dateString >= habit.from && dateString <= habit.to;
+    });
+}
+
+function getHabitStatus(date, habitName) {
+    const dateString = formatDate(date);
+    return habitCompletion[dateString] ? habitCompletion[dateString][habitName] === true : false;
+}
+
+async function handleHabitChange(dateString, habitName, isChecked) {
+    const date = new Date(dateString + 'T00:00:00');
+    if (!habitCompletion[dateString]) {
+        habitCompletion[dateString] = {};
+    }
+    habitCompletion[dateString][habitName] = isChecked;
+
+    // Save individual habit completion status
+    const habitCompletionRef = doc(db, `users/${userId}/habitCompletion/${dateString}`);
+    await setDoc(habitCompletionRef, habitCompletion[dateString], { merge: true });
+
+    // Update the curve based on the day's total completion
+    await updateHabitCurve(date);
+    updateAllViews();
+}
+
+async function updateHabitCurve(date) {
+    const dateString = formatDate(date);
+    const activeHabits = getActiveHabitsForDay(date);
+
+    if (activeHabits.length === 0) return; // No habits to track for this day
+
+    // Prevent re-calculating for an already processed day
+    if (habitCurveState.lastProcessedDate === dateString && habitCurveState.day >= 100) {
+        return;
+    }
+    
+    // Check if all active habits for the given day are completed
+    const allHabitsCompleted = activeHabits.every(habit => getHabitStatus(date, habit.name));
+
+    // Only update if it's a new day or the first time processing today
+    if (habitCurveState.lastProcessedDate !== dateString) {
+        if (habitCurveState.day >= 100) { // Reset after 100 days
+             habitCurveState = { day: 0, value: 1.0, history: [] };
+        }
+        
+        const newDay = habitCurveState.day + 1;
+        const newValue = allHabitsCompleted ? habitCurveState.value * 1.01 : habitCurveState.value * 0.99;
+        
+        habitCurveState.day = newDay;
+        habitCurveState.value = newValue;
+        habitCurveState.lastProcessedDate = dateString;
+        habitCurveState.history.push({ day: newDay, value: newValue });
+
+        // Save the updated curve state to Firestore
+        const habitCurveStateRef = doc(db, `users/${userId}/data/habitCurveState`);
+        await setDoc(habitCurveStateRef, habitCurveState);
+    }
+}
+
+
+function renderDailyHabits(container) {
+    const activeHabits = getActiveHabitsForDay(currentDate);
+    if (activeHabits.length === 0) return;
+
+    let habitsHTML = `
+        <div class="mt-6 bg-white p-6 rounded-xl shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">Daily Habits</h3>
+            <div id="daily-habits-list" class="space-y-2">`;
+    
+    const dateString = formatDate(currentDate);
+    activeHabits.forEach(habit => {
+        const habitId = `habit-${dateString}-${habit.name.replace(/\s+/g, '-')}`;
+        const isChecked = getHabitStatus(currentDate, habit.name);
+        habitsHTML += `
+            <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <input type="checkbox" id="${habitId}" class="task-checkbox mr-3" onchange="handleHabitChange('${dateString}', '${habit.name}', this.checked)" ${isChecked ? 'checked' : ''}>
+                <label for="${habitId}" class="font-semibold">${habit.name}</label>
+            </div>`;
+    });
+
+    habitsHTML += `</div></div>`;
+    container.insertAdjacentHTML('beforeend', habitsHTML);
+}
+
+function renderHabitChart() {
+    if (habitCurveChart) {
+        habitCurveChart.destroy();
+    }
+    if (!habitCurveState.history || habitCurveState.history.length === 0) {
+        return; // Don't render an empty chart
+    }
+
+    const labels = habitCurveState.history.map(d => `Day ${d.day}`);
+    const dataPoints = habitCurveState.history.map(d => d.value);
+
+    const ctx = document.getElementById('habitCurveChart').getContext('2d');
+    habitCurveChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Habit Growth',
+                data: dataPoints,
+                borderColor: '#22c55e',
+                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toFixed(2); // Format to 2 decimal places
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Value: ${context.parsed.y.toFixed(4)}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+
 // --- Entry Point ---
 main();
-
