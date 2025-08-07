@@ -7,7 +7,7 @@ import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://
 
 // Your web app's Firebase configuration - PLEASE REPLACE WITH YOUR NEW, RESTRICTED API KEY
 const firebaseConfig = {
-    apiKey: "AIzaSyAsKuZFDCmOhEoBMqR21unqWNNlyMM3GAA",
+    apiKey: "AIzaSyBTPE3zzXpeW0Qq3_czgWOJ08HituC8NcA",
     authDomain: "prepdash-ayush.firebaseapp.com",
     projectId: "prepdash-ayush",
     storageBucket: "prepdash-ayush.appspot.com",
@@ -1032,5 +1032,6 @@ function renderHabitChart() {
 
 // --- Entry Point ---
 main();
+
 
 
