@@ -101,8 +101,8 @@ The goal is to continue evolving Prep Dash into an even more powerful tool for s
 
 This project was created by **Ayush Patil**. Feel free to reach out!
 
-[<img src="https://img.icons8.com/fluent/48/000000/github.png" width="30">](https://github.com/your-username) &nbsp;&nbsp;
-[<img src="https://img.icons8.com/fluent/48/000000/linkedin.png" width="30">](https://linkedin.com/in/your-profile) &nbsp;&nbsp;
-[<img src="https://img.icons8.com/fluent/48/000000/gmail.png" width="30">](mailto:your.email@example.com) &nbsp;&nbsp;
-[<img src="https://img.icons8.com/fluent/48/000000/phone.png" width="30">](tel:+910000000000)
+[<img src="https://img.icons8.com/fluent/48/000000/github.png" width="30">](https://github.com/ayushsp29) &nbsp;&nbsp;
+[<img src="https://img.icons8.com/fluent/48/000000/linkedin.png" width="30">](https://www.linkedin.com/in/ayush-patil-techie) &nbsp;&nbsp;
+[<img src="https://img.icons8.com/fluent/48/000000/gmail.png" width="30">](mailto:work.ayushsp29@gmail.com) &nbsp;&nbsp;
+[<img src="https://img.icons8.com/fluent/48/000000/phone.png" width="30">](tel:+918055289366)
 
