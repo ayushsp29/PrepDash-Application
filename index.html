@@ -26,6 +26,14 @@
             
             <nav class="flex flex-col space-y-2 flex-grow">
                 <!-- Navigation links for each section -->
+                 <!-- Add this link to your sidebar navigation in your main app's HTML file -->
+                <a href="documentation.html" target="_blank" class="nav-link relative flex items-center space-x-4 px-4 py-3 text-slate-300 hover:bg-slate-700 rounded-lg transition-colors">
+                    <!-- About Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="font-medium">About</span>
+                </a>
                 <button onclick="switchView('today')" class="nav-link flex items-center space-x-3 p-2 rounded-lg bg-slate-700">
                     <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span>Today's Plan</span>
