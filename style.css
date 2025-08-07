@@ -23,7 +23,7 @@ body {
 }
 
 /* Adds a line-through decoration to the label of a checked task */
-.task-checkbox:checked + label {
+.task-checkbox:checked+label {
     text-decoration: line-through;
     color: #64748b; /* A muted slate color */
 }
@@ -70,16 +70,22 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Styles for the new date inputs in the settings */
 .timetable-date-input {
     width: 130px; /* Fixed width for date inputs */
     padding: 0.5rem;
-    border: 1px solid #e2e8f0; /* slate-200 */
-    border-radius: 0.375rem; /* rounded-md */
+    border: 1px solid #e2e8f0;
+    /* slate-200 */
+    border-radius: 0.375rem;
+    /* rounded-md */
     font-size: 14px;
 }
 
@@ -114,4 +120,12 @@ body {
     padding: 1.5rem;
     border-radius: 0.75rem; /* rounded-xl */
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
+}
+
+/* NEW: Style for the habit editor rows in Settings */
+.habit-row {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-items: center;
 }
