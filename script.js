@@ -7,7 +7,7 @@ import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBTPE3zzXpeW0Qq3_czgWOJ08HituC8NcA",
+    apiKey: "AIzaSyAsKuZFDCmOhEoBMqR21unqWNNlyMM3GAA",
     authDomain: "prepdash-ayush.firebaseapp.com",
     projectId: "prepdash-ayush",
     storageBucket: "prepdash-ayush.appspot.com",
@@ -779,3 +779,4 @@ function getTaskStatus(dateString, activity) {
 
 // --- Entry Point ---
 main();
+
