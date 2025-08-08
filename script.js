@@ -43,59 +43,61 @@ const dailyTasks = {
     // AUGUST DATA
     "2025-08-06": { "JAVA Core": "Core Java", "Apna Clg": "8,9,10" },
     "2025-08-07": { "Apna Clg": "11,12" },
-    "2025-08-09": { "Apna Clg": "15,16" },
-    "2025-08-10": { "Web Dev": "JS Pratice", "Apna Clg": "17,18.5" },
-    "2025-08-11": { "DSA": "Arrays Easy: Q9–Q11", "Web Dev": "JS OOPS", "Apna Clg": "18.5,19" },
-    "2025-08-12": { "DSA": "Arrays Easy: Q12–Q14", "Web Dev": "JS DOM and BOM", "T.I.M.E": "T.I.M.E #20" },
-    "2025-08-13": { "DSA": "Arrays Medium: Q1–Q3", "Web Dev": "Advanced JS", "T.I.M.E": "T.I.M.E #21" },
-    "2025-08-14": { "DSA": "Arrays Medium: Q4–Q6", "Web Dev": "Project on JS", "T.I.M.E": "T.I.M.E #22" },
-    "2025-08-15": { "DSA": "Arrays Medium: Q7–Q9", "Web Dev": "Git and Github", "T.I.M.E": "T.I.M.E #23" },
+    "2025-08-09": { "Apna Clg": "15,16", "Web Dev": "JS Pratice" },
+    "2025-08-10": { "Web Dev": "JS OOPS", "Apna Clg": "17,18.5" },
+    "2025-08-11": { "DSA": "Arrays Easy: Q9–Q11", "Web Dev": "JS DOM and BOM", "Apna Clg": "18.5,19" },
+    "2025-08-12": { "DSA": "Arrays Easy: Q12–Q14", "Web Dev": "Advanced JS", "T.I.M.E": "T.I.M.E #20" },
+    "2025-08-13": { "DSA": "Arrays Medium: Q1–Q3", "Web Dev": "Project on JS", "T.I.M.E": "T.I.M.E #21" },
+    "2025-08-14": { "DSA": "Arrays Medium: Q4–Q6", "Web Dev": "Git and Github", "T.I.M.E": "T.I.M.E #22" },
+    "2025-08-15": { "DSA": "Arrays Medium: Q7–Q9", "T.I.M.E": "T.I.M.E #23" },
     "2025-08-16": { "DSA": "Arrays Medium: Q10–Q12", "T.I.M.E": "T.I.M.E #24" },
     "2025-08-17": { "DSA": "Arrays Medium: Q13–Q14", "T.I.M.E": "T.I.M.E #25" },
-    "2025-08-18": { "DSA": "Arrays Hard: Q1–Q3", "T.I.M.E": "T.I.M.E #26" },
-    "2025-08-19": { "DSA": "Arrays Hard: Q4–Q6", "Web Dev": "Backend and Node", "T.I.M.E": "T.I.M.E #27" },
-    "2025-08-20": { "DSA": "Arrays Hard: Q7–Q9", "Web Dev": "Databases", "JAVA Core": "J Unit", "T.I.M.E": "T.I.M.E #28" },
+    "2025-08-18": { "DSA": "Arrays Hard: Q1–Q3", "T.I.M.E": "T.I.M.E #26", "Web Dev": "Backend and Node" },
+    "2025-08-19": { "DSA": "Arrays Hard: Q4–Q6", "Web Dev": "Databases", "T.I.M.E": "T.I.M.E #27" },
+    "2025-08-20": { "DSA": "Arrays Hard: Q7–Q9", "Web Dev": "Mega Project", "JAVA Core": "J Unit", "T.I.M.E": "T.I.M.E #28" },
     "2025-08-21": { "DSA": "Arrays Hard: Q10–Q12", "Web Dev": "Mega Project", "T.I.M.E": "T.I.M.E #29" },
     "2025-08-22": { "DSA": "BS on 1D Arrays: Q1–Q3", "Web Dev": "Mega Project", "T.I.M.E": "T.I.M.E #30" },
-    "2025-08-23": { "DSA": "BS on 1D Arrays: Q4–Q6", "Web Dev": "Mega Project" },
+    "2025-08-23": { "DSA": "BS on 1D Arrays: Q4–Q6" },
     "2025-08-24": { "DSA": "BS on 1D Arrays: Q7–Q9", "Web Dev": "MongoDB" },
     "2025-08-25": { "DSA": "BS on 1D Arrays: Q10–Q12" },
     "2025-08-26": { "DSA": "BS on 1D Arrays: Q13–Q13" },
-    "2025-08-27": { "DSA": "BS on Answers: Q1–Q3", "JAVA Core": "DSA" },
+    "2025-08-27": { "DSA": "BS on Answers: Q1–Q3", "JAVA Core": "DSA", "Web Dev": "Mega Project" },
     "2025-08-28": { "DSA": "BS on Answers: Q4–Q6", "Web Dev": "Mega Project" },
     "2025-08-29": { "DSA": "BS on Answers: Q7–Q9", "Web Dev": "Mega Project" },
-    "2025-08-30": { "DSA": "BS on Answers: Q10–Q12", "Web Dev": "Mega Project" },
+    "2025-08-30": { "DSA": "BS on Answers: Q10–Q12", "Web Dev": "Full stack Auth. Sys" },
     "2025-08-31": { "DSA": "BS on Answers: Q13–Q14", "Web Dev": "Full stack Auth. Sys" },
-    "2025-09-01": { "DSA": "BS on 2D Arrays: Q1–Q3", "Web Dev": "Full stack Auth. Sys" },
+    // SEPTEMBER DATA
+    "2025-09-01": { "DSA": "BS on 2D Arrays: Q1–Q3" },
     "2025-09-02": { "DSA": "BS on 2D Arrays: Q4–Q5" },
     "2025-09-03": { "DSA": "Basic and Easy Strings: Q1–Q3", "JAVA Core": "Git and JDBC" },
-    "2025-09-04": { "DSA": "Basic and Easy Strings: Q4–Q6" },
+    "2025-09-04": { "DSA": "Basic and Easy Strings: Q4–Q6", "Web Dev": "Next Js." },
     "2025-09-05": { "DSA": "Basic and Easy Strings: Q7–Q7", "Web Dev": "Next Js." },
-    "2025-09-06": { "DSA": "Medium String Problems: Q1–Q3", "Web Dev": "Next Js." },
-    "2025-09-07": { "DSA": "Medium String Problems: Q4–Q6", "Web Dev": "Deploy" },
+    "2025-09-06": { "DSA": "Medium String Problems: Q1–Q3", "Web Dev": "Deploy" },
+    "2025-09-07": { "DSA": "Medium String Problems: Q4–Q6", "Web Dev": "AI Powered" },
     "2025-09-08": { "DSA": "Medium String Problems: Q7–Q8", "Web Dev": "AI Powered" },
-    "2025-09-09": { "DSA": "1D LinkedList: Q1–Q3", "Web Dev": "AI Powered" },
+    "2025-09-09": { "DSA": "1D LinkedList: Q1–Q3", "Web Dev": "Master SQL" },
     "2025-09-10": { "DSA": "1D LinkedList: Q4–Q5", "Web Dev": "Master SQL", "JAVA Core": "Servlet and JSP" },
     "2025-09-11": { "DSA": "Doubly LinkedList: Q1–Q3", "Web Dev": "Master SQL" },
     "2025-09-12": { "DSA": "Doubly LinkedList: Q4–Q4" },
     "2025-09-13": { "DSA": "Medium Problems of LL: Q1–Q3" },
-    "2025-09-14": { "DSA": "Medium Problems of LL: Q4–Q6" },
+    "2025-09-14": { "DSA": "Medium Problems of LL: Q4–Q6", "Web Dev": "Event Driven" },
     "2025-09-15": { "DSA": "Medium Problems of LL: Q7–Q9", "Web Dev": "Event Driven" },
-    "2025-09-16": { "DSA": "Medium Problems of LL: Q10–Q12", "Web Dev": "Event Driven" },
+    "2025-09-16": { "DSA": "Medium Problems of LL: Q10–Q12", "Web Dev": "Fastify Framework" },
     "2025-09-17": { "DSA": "Medium Problems of LL: Q13–Q15", "Web Dev": "Fastify Framework", "JAVA Core": "Hibernet" },
-    "2025-09-18": { "DSA": "Medium Problems of DLL: Q1–Q3", "Web Dev": "Fastify Framework" },
+    "2025-09-18": { "DSA": "Medium Problems of DLL: Q1–Q3", "Web Dev": "Secure LMS" },
     "2025-09-19": { "DSA": "Hard Problems of LL: Q1–Q3", "Web Dev": "Secure LMS" },
     "2025-09-20": { "DSA": "Hard Problems of LL: Q4–Q4", "Web Dev": "Secure LMS" },
     "2025-09-21": { "DSA": "Get a Strong Hold (Recursion): Q1–Q3", "Web Dev": "Secure LMS" },
-    "2025-09-22": { "DSA": "Get a Strong Hold (Recursion): Q4–Q5", "Web Dev": "Secure LMS" },
+    "2025-09-22": { "DSA": "Get a Strong Hold (Recursion): Q4–Q5" },
     "2025-09-23": { "DSA": "Subsequences Pattern (Recursion): Q1–Q3" },
-    "2025-09-24": { "DSA": "Subsequences Pattern (Recursion): Q4–Q6", "JAVA Core": "Rest API web Service" },
+    "2025-09-24": { "DSA": "Subsequences Pattern (Recursion): Q4–Q6", "JAVA Core": "Rest API web Service", "Web Dev": "Docker" },
     "2025-09-25": { "DSA": "Subsequences Pattern (Recursion): Q7–Q9", "Web Dev": "Docker" },
-    "2025-09-26": { "DSA": "Subsequences Pattern (Recursion): Q10–Q12", "Web Dev": "Docker" },
+    "2025-09-26": { "DSA": "Subsequences Pattern (Recursion): Q10–Q12" },
     "2025-09-27": { "DSA": "Trying all Combos / Hard (Recursion): Q1–Q3" },
     "2025-09-28": { "DSA": "Trying all Combos / Hard (Recursion): Q4–Q6" },
     "2025-09-29": { "DSA": "Trying all Combos / Hard (Recursion): Q7–Q8" },
     "2025-09-30": { "DSA": "Learn Bit Manipulation: Q1–Q3" },
+    // OCTOBER to JANUARY data remains the same...
     "2025-10-01": { "DSA": "Learn Bit Manipulation: Q4–Q6", "JAVA Core": "Spring Framework" },
     "2025-10-02": { "DSA": "Learn Bit Manipulation: Q7–Q8" },
     "2025-10-03": { "DSA": "Interview Problems (Bit Manipulation): Q1–Q3" },
@@ -744,6 +746,7 @@ function updateView(view) {
     else if (view === 'backlogs') renderBacklogs();
     else if (view === 'progress') renderProgress();
     else if (view === 'settings') renderSettings();
+    else if (view === 'fullSchedule') renderFullSchedule(); // NEW: Handle new view
 }
 
 function updateAllViews() {
@@ -759,6 +762,76 @@ function updateAllViews() {
 }
 
 // --- NEW/MODIFIED Feature Logic & Helpers ---
+
+// NEW: Function to render the full schedule spreadsheet view
+function renderFullSchedule() {
+    const container = document.getElementById('view-fullSchedule');
+
+    // Define the headers for our spreadsheet, in the desired order
+    const headers = ['Day', 'Date', 'DSA', 'Web Dev', 'JAVA Core', 'T.I.M.E', 'Apna Clg', 'OS', 'DBMS', 'CN', 'OOPS', 'SEPM', 'Internship', 'DSA Revision', 'Morning Fresh'];
+
+    let tableHTML = `
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold text-slate-900">Full Schedule</h2>
+            <p class="text-slate-500">A complete, day-by-day overview of all scheduled tasks.</p>
+        </div>
+        <div class="bg-white p-2 rounded-xl shadow-sm overflow-x-auto">
+            <table class="schedule-table w-full border-collapse text-sm">
+                <thead>
+                    <tr>
+                        ${headers.map(h => `<th class="p-2 border border-slate-300 bg-slate-200 text-left sticky top-0 z-10">${h}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    // Iterate through each day from the start to the end date
+    let tempDate = new Date(startDate);
+    while (tempDate <= endDate) {
+        const dateString = formatDate(tempDate);
+        const dayName = tempDate.toLocaleDateString('en-US', { weekday: 'long' });
+        const scheduleForDay = getScheduleForDay(tempDate);
+
+        // Create a map of tasks for the current day for easy lookup
+        const tasksByHeader = {};
+        scheduleForDay.forEach(task => {
+            let key = task.activity;
+            // If the activity is 'Core CSE', use the specific topic (e.g., 'OS', 'DBMS') as the key
+            if (task.activity === 'Core CSE') {
+                key = getCoreCseTopic(tempDate);
+            }
+            tasksByHeader[key] = { detail: task.details, originalActivity: task.activity };
+        });
+
+        tableHTML += `<tr>`;
+        // Add cells for Day and Date
+        tableHTML += `<td class="p-2 border border-slate-200 font-medium whitespace-nowrap">${dayName}</td>`;
+        tableHTML += `<td class="p-2 border border-slate-200 whitespace-nowrap">${dateString}</td>`;
+
+        // Add cells for each subject/header
+        headers.slice(2).forEach(header => { // Start from the third header (skip Day, Date)
+            const taskInfo = tasksByHeader[header];
+            const taskDetail = taskInfo ? taskInfo.detail : '';
+            // Check if the task was completed
+            const isCompleted = taskInfo ? getTaskStatus(dateString, taskInfo.originalActivity) : false;
+            const cellClass = isCompleted ? 'task-completed-cell' : '';
+
+            tableHTML += `<td class="p-2 border border-slate-200 ${cellClass}">${taskDetail}</td>`;
+        });
+        tableHTML += `</tr>`;
+
+        // Move to the next day
+        tempDate.setDate(tempDate.getDate() + 1);
+    }
+
+    tableHTML += `
+                </tbody>
+            </table>
+        </div>
+    `;
+    container.innerHTML = tableHTML;
+}
+
 function updateDailyProgressBar() {
     const trackableTasks = getScheduleForDay(currentDate).filter(task => task.activity !== 'Morning Fresh');
     if (trackableTasks.length === 0) {
@@ -1032,10 +1105,3 @@ function renderHabitChart() {
 
 // --- Entry Point ---
 main();
-
-
-
-
-
-
-
