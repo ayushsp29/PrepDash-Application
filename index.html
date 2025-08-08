@@ -51,6 +51,10 @@
                     <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                     <span>Progress Tracker</span>
                 </button>
+                <button onclick="switchView('fullSchedule')" class="nav-link flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-700">
+                    <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <span>Full Schedule</span>
+                </button>
             </nav>
             
             <div>
@@ -75,6 +79,7 @@
             <div id="view-calendar" class="view-content hidden"></div>
             <div id="view-progress" class="view-content hidden"></div>
             <div id="view-settings" class="view-content hidden"></div>
+            <div id="view-fullSchedule" class="view-content hidden"></div> 
         </main>
     </div>
 
